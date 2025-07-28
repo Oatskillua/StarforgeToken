@@ -1,0 +1,15 @@
+# Node modules
+node_modules/
+starforge-frontend/node_modules/
+
+# Hardhat build artifacts
+cache/
+artifacts/
+
+# Local env file
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
