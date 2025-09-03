@@ -1,0 +1,764 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts\StarforgeStaking.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> StarforgeStaking.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">93.75% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>60/64</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">67.57% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>50/74</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">86.67% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>13/15</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>76/76</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-yes">28×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">32×</span>
+<span class="cline-any cline-yes">32×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">29×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-yes">16×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-yes">14×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-yes">17×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+&nbsp;
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/utils/Pausable.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "./IStarForge.sol";
+import "./IOGNFT.sol";
+&nbsp;
+/// @notice Non-inflationary staking: rewards are paid only from a pre-funded reserve tracked on-chain.
+/// @dev Assign DEFAULT_ADMIN_ROLE and STAKING_ADMIN_ROLE to the Timelock in production.
+contract StarforgeStaking is AccessControl, ReentrancyGuard, Pausable {
+    using SafeERC20 for IERC20;
+&nbsp;
+    // ------------------------------- Roles -----------------------------------
+    bytes32 public constant STAKING_ADMIN_ROLE = keccak256("STAKING_ADMIN_ROLE");
+&nbsp;
+    // ------------------------------- Tokens ----------------------------------
+    IStarForge public immutable sft;
+    IOGNFT   public immutable ogNFT; // optional; pass address(0) if OG boost is disabled
+&nbsp;
+    // ------------------------- Economic Parameters ---------------------------
+    // All APY numbers are in basis points (bps): 10000 = 100%
+    uint256 public constant MAX_APY_BPS          = 700;   // 7.00% hard cap (base + OG boost)
+    uint256 public constant OGNFT_BOOST_BPS      = 200;   // +2.00% if user holds OG NFT
+    uint256 public constant WITHDRAWAL_FEE_BPS   = 100;   // 1.00% fee burned on unstake
+    uint256 public constant MAX_APY_STEP_BPS     = 100;   // max per-change step = 1.00%
+    uint256 public constant APY_CHANGE_COOLDOWN  = 90 days;
+    uint256 public constant SECONDS_PER_YEAR     = 365 days;
+&nbsp;
+    // --------------------------- Governed State ------------------------------
+    uint256 public baseApyBps = 350;            // default 3.50% base APY
+    uint256 public lastApyUpdate;               // last timestamp APY was updated
+&nbsp;
+    // Rewards funding (push-based)
+    address public rewardsFunder;               // TreasuryVesting (or timelock) allowed to notify funding
+    uint256 public rewardsReserve;              // Rewards-only balance available to pay claims
+&nbsp;
+    // --------------------------- User Accounting -----------------------------
+    mapping(address =&gt; uint256) public stakedBalance;
+    mapping(address =&gt; uint256) public lastUpdateTime;
+    mapping(address =&gt; uint256) public rewardAccrued; // accrued but not yet claimed
+    uint256 public totalStaked;
+&nbsp;
+    // ------------------------------- Events ----------------------------------
+    event Staked(address indexed user, uint256 amount);
+    event Unstaked(address indexed user, uint256 amount, uint256 fee);
+    event RewardsClaimed(address indexed user, uint256 amount);
+&nbsp;
+    event BaseApyUpdated(uint256 oldBps, uint256 newBps);
+    event RewardsFunderSet(address indexed who);
+    event RewardsFunded(address indexed from, uint256 amount);
+&nbsp;
+    // -------------------------------- Init -----------------------------------
+    constructor(IStarForge _sft, IOGNFT _ogNFT) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(address(_sft) != address(0), "SFT=0"); // SFT must be set
+        // ogNFT may be zero (feature toggle). If zero, no boost is applied.
+        sft   = _sft;
+        ogNFT = _ogNFT;
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(STAKING_ADMIN_ROLE, msg.sender);
+        lastApyUpdate = block.timestamp;
+    }
+&nbsp;
+    // ------------------------------- Views -----------------------------------
+&nbsp;
+    function _currentRateBps(address user) internal view returns (uint256) {
+        uint256 rate = baseApyBps;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (address(ogNFT) != address(0)) {
+            // Presence check (&gt;=1 OG NFT gives boost); tolerate external call failure.
+            try ogNFT.balanceOf(user) returns (uint256 bal) {
+                if (bal &gt; 0) rate += OGNFT_BOOST_BPS;
+            } catch {}
+        }
+        // Cap aggregate rate defensively
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (rate &gt; MAX_APY_BPS) <span class="cstat-no" title="statement not covered" >return MAX_APY_BPS;</span>
+        return rate;
+    }
+&nbsp;
+    // Accrual since the last checkpoint for `user`
+    function _pendingSinceLast(address user) internal view returns (uint256) {
+        uint256 principal = stakedBalance[user];
+        if (principal &gt; 0) {
+            uint256 last = lastUpdateTime[user];
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (last == 0) <span class="cstat-no" title="statement not covered" >return 0;</span>
+            <span class="missing-if-branch" title="else path not taken" >E</span>if (block.timestamp &gt; last) {
+                uint256 delta = block.timestamp - last; // strictly positive
+                uint256 rateBps = _currentRateBps(user);
+                // linear accrual: principal * (rateBps/10000) * (delta/secondsPerYear)
+                return (principal * rateBps * delta) / (SECONDS_PER_YEAR * 10000);
+            }
+        }
+        return 0;
+    }
+&nbsp;
+    /// @notice Total pending rewards at current block
+    function pendingRewards(address user) public view returns (uint256) {
+        return rewardAccrued[user] + _pendingSinceLast(user);
+    }
+&nbsp;
+    /// @notice Compatibility helper expected by tests/UIs
+    function getRewards(address user) external view returns (uint256) {
+        return pendingRewards(user);
+    }
+&nbsp;
+    // --------------------------- Internal Helpers ----------------------------
+&nbsp;
+    /// @dev Pulls forward pending rewards into rewardAccrued and updates timestamp
+    function updateRewards(address user) public {
+        uint256 addl = _pendingSinceLast(user);
+        if (addl &gt; 0) {
+            rewardAccrued[user] += addl;
+        }
+        lastUpdateTime[user] = block.timestamp;
+    }
+&nbsp;
+    // ------------------------------- Actions ---------------------------------
+&nbsp;
+    function stake(uint256 amount) external <span class="missing-if-branch" title="else path not taken" >E</span>whenNotPaused <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
+        require(amount &gt; 0, "Cannot stake zero");
+&nbsp;
+        // Initialize timestamp if this is the first interaction
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (lastUpdateTime[msg.sender] == 0) {
+            lastUpdateTime[msg.sender] = block.timestamp;
+        }
+&nbsp;
+        updateRewards(msg.sender);
+        stakedBalance[msg.sender] += amount; // effects
+        totalStaked += amount;
+&nbsp;
+        IERC20(address(sft)).safeTransferFrom(msg.sender, address(this), amount); // interaction
+        emit Staked(msg.sender, amount);
+    }
+&nbsp;
+    function unstake(uint256 amount) external <span class="missing-if-branch" title="else path not taken" >E</span>whenNotPaused <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
+        require(amount &gt; 0, "Cannot unstake zero");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(amount &lt;= stakedBalance[msg.sender], "Insufficient staked balance");
+&nbsp;
+        updateRewards(msg.sender);
+&nbsp;
+        uint256 fee = (amount * WITHDRAWAL_FEE_BPS) / 10000;
+        stakedBalance[msg.sender] -= amount; // effects
+        totalStaked -= amount;
+&nbsp;
+        // Burn fee from contract/treasury per token's burn hook
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (fee &gt; 0) {
+            sft.burnExcessTreasury(fee);
+        }
+&nbsp;
+        // Pay user principal minus fee
+        IERC20(address(sft)).safeTransfer(msg.sender, amount - fee); // interaction
+        emit Unstaked(msg.sender, amount, fee);
+    }
+&nbsp;
+    function claimRewards() external <span class="missing-if-branch" title="else path not taken" >E</span>whenNotPaused <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
+        updateRewards(msg.sender);
+        uint256 reward = rewardAccrued[msg.sender];
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(reward &gt; 0, "No rewards");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(rewardsReserve &gt;= reward, "Insufficient rewards reserve");
+&nbsp;
+        rewardAccrued[msg.sender] = 0;           // effects
+        rewardsReserve -= reward;                 // effects (CEI)
+        IERC20(address(sft)).safeTransfer(msg.sender, reward); // interaction
+&nbsp;
+        emit RewardsClaimed(msg.sender, reward);
+    }
+&nbsp;
+    // ---------------------------- Funding (Push) -----------------------------
+&nbsp;
+    /// @notice Set the only address allowed to notify reward funding (e.g., TreasuryVesting).
+    function setRewardsFunder(address who) external onlyRole(STAKING_ADMIN_ROLE) {
+        require(who != address(0), "Zero funder");
+        rewardsFunder = who;
+        emit RewardsFunderSet(who);
+    }
+&nbsp;
+    /// @notice Treasury/vesting pushes tokens to this contract, then calls notify to register them as rewards.
+    /// @dev Caller MUST be `rewardsFunder`. Assumes tokens were already transferred here.
+    function notifyRewardReceived(uint256 amount) external <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
+        require(msg.sender == rewardsFunder, "Not funder");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(amount &gt; 0, "Amount=0");
+        // We do not enforce balance checks here; governance should ensure funding is real.
+        rewardsReserve += amount;
+        emit RewardsFunded(msg.sender, amount);
+    }
+&nbsp;
+    // ------------------------- Governance Controls ---------------------------
+&nbsp;
+    /// @notice Returns (numerator, denominator) for runway years with a proposed base APY.
+    /// @dev Worst-case assumption: everyone gets OG boost; annualEmissions = totalStaked * (base+boost)/10000
+    function _runwayFracWith(uint256 newBaseBps) internal view returns (uint256 numer, uint256 denom) {
+        uint256 totalBps = newBaseBps + OGNFT_BOOST_BPS;
+        if (totalStaked == 0 || <span class="branch-1 cbranch-no" title="branch not covered" >totalBps == 0</span>) {
+            // Infinite runway sentinel (1/0)
+            return (1, 0);
+        }
+        uint256 annualEmissions = (totalStaked * totalBps) / 10_000;
+        return (rewardsReserve, annualEmissions);
+    }
+&nbsp;
+    /// @notice Update the base APY (bps), subject to hard cap, cooldown, step limit, and 7-year runway floor.
+    function setBaseApyBps(uint256 newBps) external onlyRole(STAKING_ADMIN_ROLE) {
+        // Hard cap applies to aggregate (base + OG boost)
+        require(newBps + OGNFT_BOOST_BPS &lt;= MAX_APY_BPS, "Exceeds cap");
+&nbsp;
+        // Cooldown
+        require(block.timestamp &gt;= lastApyUpdate + APY_CHANGE_COOLDOWN, "Cooldown");
+&nbsp;
+        // Step size
+        uint256 old = baseApyBps;
+        uint256 diff = old &gt; newBps ? <span class="missing-if-branch" title="if path not taken" >I</span>(old - newBps) : (newBps - old);
+        require(diff &lt;= MAX_APY_STEP_BPS, "Step too large");
+&nbsp;
+        // Runway floor: require runway &gt;= 7 years (conservative)
+        (uint256 numer, uint256 denom) = _runwayFracWith(newBps);
+        if (denom &gt; 0) {
+            // Require numer/denom &gt;= 7  =&gt; numer &gt;= 7 * denom
+            require(numer &gt;= 7 * denom, "Runway &lt; 7y");
+        }
+        // else denom == 0 =&gt; no stake or APY 0 =&gt; infinite runway, safe to proceed.
+&nbsp;
+        baseApyBps = newBps;
+        lastApyUpdate = block.timestamp;
+        emit BaseApyUpdated(old, newBps);
+    }
+&nbsp;
+    // ------------------------------- Pausing ---------------------------------
+&nbsp;
+<span class="fstat-no" title="function not covered" >    function pause() external onlyRole(STAKING_ADMIN_ROLE) { <span class="cstat-no" title="statement not covered" >_pause()</span>; }</span>
+<span class="fstat-no" title="function not covered" >    function unpause() external onlyRole(STAKING_ADMIN_ROLE) { <span class="cstat-no" title="statement not covered" >_unpause()</span>; }</span>
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Sep 02 2025 23:55:28 GMT-0700 (Pacific Daylight Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>

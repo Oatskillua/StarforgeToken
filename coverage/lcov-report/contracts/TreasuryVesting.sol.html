@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for contracts\TreasuryVesting.sol</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../index.html">all files</a> / <a href="index.html">contracts/</a> TreasuryVesting.sol
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.33% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>59/60</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">74.39% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>61/82</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>10/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">98.57% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>69/70</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line high'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-yes">19×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">15×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">13×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">12×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">7×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.24;
+&nbsp;
+import "@openzeppelin/contracts/access/AccessControl.sol";
+import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "./IStarForge.sol";
+&nbsp;
+/// @notice Treasury vesting with strict accounting and governance-friendly controls.
+/// @dev Assign VESTING_ADMIN_ROLE and DEFAULT_ADMIN_ROLE to the TimelockController in production.
+contract TreasuryVesting is AccessControl, ReentrancyGuard {
+    using SafeERC20 for IERC20;
+&nbsp;
+    // ----------------------------- Roles / Token ------------------------------
+    bytes32 public constant VESTING_ADMIN_ROLE = keccak256("VESTING_ADMIN_ROLE");
+    IStarForge public immutable sft;
+&nbsp;
+    // ----------------------------- Vesting Model ------------------------------
+    struct VestingSchedule {
+        uint256 totalAmount;
+        uint256 releasedAmount;
+        uint256 startTime;
+        uint256 duration;
+        address funder;
+    }
+&nbsp;
+    /// @notice Total SFT reserved for all active vesting schedules.
+    uint256 public totalEscrowed;
+&nbsp;
+    /// @notice beneficiary =&gt; schedule
+    mapping(address =&gt; VestingSchedule) public vestingSchedules;
+&nbsp;
+    // ----------------------- Staking Rewards Vault (SRV) ----------------------
+    /// @dev One-time, immutable dedication of supply to staking rewards (push-funded).
+    uint16 public constant MIN_STAKING_VAULT_BPS = 1500; // 15.00%
+    uint16 public constant MAX_STAKING_VAULT_BPS = 2000; // 20.00%
+&nbsp;
+    bool    public stakingVaultInitialized;
+    uint256 public stakingVaultCap;       // Immutable cap once initialized
+    uint256 public stakingVaultBalance;   // Remaining SRV funds held here
+&nbsp;
+    // ------------------------------- Events -----------------------------------
+    /// Vesting
+    event AllocationSet(address indexed beneficiary, uint256 amount, uint256 duration, address indexed funder);
+    event AllocationCleared(address indexed beneficiary, address indexed receiver, uint256 refundedAmount);
+    event TokensClaimed(address indexed beneficiary, uint256 amount);
+&nbsp;
+    /// SRV
+    event StakingVaultInitialized(uint256 capAmount, uint16 percentBps, address indexed funder);
+    event StakingVaultFunded(address indexed staking, uint256 amount, address indexed caller);
+&nbsp;
+    // ------------------------------ Constructor -------------------------------
+    constructor(IStarForge _sft) {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(address(_sft) != address(0), "SFT=0");
+        sft = _sft;
+        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
+        _grantRole(VESTING_ADMIN_ROLE, msg.sender);
+    }
+&nbsp;
+    // ============================== Vesting API ===============================
+&nbsp;
+    /// @notice Create a vesting allocation and fund it in a single tx.
+    /// @dev Eliminates arbitrary-send by requiring the funder to be the caller.
+    ///      Cannot overwrite an existing schedule; use clearAllocation first if needed.
+    function setAllocation(address beneficiary, uint256 amount, uint256 duration, address funder)
+        external
+        onlyRole(VESTING_ADMIN_ROLE)
+    {
+        require(beneficiary != address(0) &amp;&amp; funder != address(0), "Zero address");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(funder == msg.sender, "Funder must be caller");
+        require(amount &gt; 0, "Invalid amount");
+        require(duration &gt; 0, "Invalid duration");
+        require(vestingSchedules[beneficiary].totalAmount == 0, "Schedule exists"); // sentinel for no-schedule
+&nbsp;
+        // Effects
+        vestingSchedules[beneficiary] = VestingSchedule({
+            totalAmount: amount,
+            releasedAmount: 0,
+            startTime: block.timestamp,
+            duration: duration,
+            funder: funder
+        });
+        totalEscrowed += amount;
+&nbsp;
+        // Interactions
+        IERC20(address(sft)).safeTransferFrom(msg.sender, address(this), amount);
+&nbsp;
+        emit AllocationSet(beneficiary, amount, duration, funder);
+    }
+&nbsp;
+    /// @notice Linearly vested amount as of `timestamp`.
+    /// @dev Uses timestamps intentionally; linear vesting is time-based.
+    function vestedAmount(address beneficiary, uint256 timestamp) public view returns (uint256) {
+        VestingSchedule memory schedule = vestingSchedules[beneficiary];
+        uint256 total = schedule.totalAmount;
+        if (total &gt; 0) {
+            uint256 start = schedule.startTime;
+            if (timestamp &gt; start) {
+                uint256 end = start + schedule.duration;
+                if (timestamp &gt;= end) return total;
+                uint256 elapsed = timestamp - start;
+                return (total * elapsed) / schedule.duration;
+            }
+        }
+        return 0;
+    }
+&nbsp;
+    /// @notice Claim vested tokens for a beneficiary.
+    function claimVestedTokens(address beneficiary) external <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant {
+        VestingSchedule storage schedule = vestingSchedules[beneficiary];
+        require(schedule.totalAmount &gt; 0, "No vesting schedule");
+&nbsp;
+        uint256 vested = vestedAmount(beneficiary, block.timestamp);
+        uint256 unreleased = vested &gt; schedule.releasedAmount ? (vested - schedule.releasedAmount) : 0;
+        require(unreleased &gt; 0, "No tokens to release");
+&nbsp;
+        // Effects
+        schedule.releasedAmount += unreleased;
+        totalEscrowed -= unreleased;
+&nbsp;
+        // Interactions
+        IERC20(address(sft)).safeTransfer(beneficiary, unreleased);
+&nbsp;
+        emit TokensClaimed(beneficiary, unreleased);
+    }
+&nbsp;
+    /// @notice Admin can clear an existing schedule and refund all *unreleased* tokens.
+    /// @dev Route this via governance timelock by giving the role to the timelock.
+    /// @param beneficiary The schedule owner to clear.
+    /// @param receiver Receiver of the refund. If zero, defaults to the original funder.
+    function clearAllocation(address beneficiary, address receiver)
+        external
+        <span class="missing-if-branch" title="else path not taken" >E</span>onlyRole(VESTING_ADMIN_ROLE)
+        <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant
+    {
+        VestingSchedule memory schedule = vestingSchedules[beneficiary];
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(schedule.totalAmount &gt; 0, "No schedule");
+&nbsp;
+        uint256 unreleased = schedule.totalAmount - schedule.releasedAmount;
+        delete vestingSchedules[beneficiary];
+&nbsp;
+        <span class="missing-if-branch" title="else path not taken" >E</span>if (unreleased &gt; 0) {
+            totalEscrowed -= unreleased;
+            address to = receiver == address(0) ? <span class="missing-if-branch" title="if path not taken" >I</span>schedule.funder : receiver;
+            <span class="missing-if-branch" title="else path not taken" >E</span>require(to != address(0), "Zero receiver");
+            IERC20(address(sft)).safeTransfer(to, unreleased);
+            emit AllocationCleared(beneficiary, to, unreleased);
+        } else {
+<span class="cstat-no" title="statement not covered" >            emit AllocationCleared(beneficiary, address(0), 0);</span>
+        }
+    }
+&nbsp;
+    // ====================== Staking Rewards Vault (SRV) =======================
+&nbsp;
+    /**
+     * @notice One-time initialization of the dedicated Staking Rewards Vault.
+     * @param percentBps basis points in [1500 .. 2000] of total supply to dedicate.
+     * @param funder     address supplying the tokens (must approve this contract, OR be the caller per rule below).
+     *
+     * Effect:
+     * - Pulls the computed amount from `funder` into this contract.
+     * - Sets immutable `stakingVaultCap` and `stakingVaultBalance` to that amount.
+     *
+     * Security policy:
+     * - To avoid arbitrary-pull risk, require `funder == msg.sender`.
+     *   This implies the caller actually holds the tokens or a hot treasury and is intentionally moving them.
+     */
+    function initStakingRewardsVault(uint16 percentBps, address funder)
+        external
+        onlyRole(VESTING_ADMIN_ROLE)
+        <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant
+    {
+        require(!stakingVaultInitialized, "SRV already initialized");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(percentBps &gt;= MIN_STAKING_VAULT_BPS &amp;&amp; percentBps &lt;= MAX_STAKING_VAULT_BPS, "BPS out of range");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(funder != address(0), "Funder=0");
+        require(funder == msg.sender, "Funder must be caller");
+&nbsp;
+        uint256 cap = (sft.totalSupply() * percentBps) / 10_000;
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(cap &gt; 0, "Cap=0");
+&nbsp;
+        // Pull tokens into this contract to lock them for staking rewards only
+        IERC20(address(sft)).safeTransferFrom(msg.sender, address(this), cap);
+&nbsp;
+        stakingVaultInitialized = true;
+        stakingVaultCap = cap;
+        stakingVaultBalance = cap;
+&nbsp;
+        emit StakingVaultInitialized(cap, percentBps, funder);
+    }
+&nbsp;
+    /**
+     * @notice Push funds from SRV to the staking contract's balance.
+     * @dev Use with staking's `notifyRewardReceived(amount)` in the same governance proposal.
+     */
+    function fundStaking(address staking, uint256 amount)
+        external
+        onlyRole(VESTING_ADMIN_ROLE)
+        <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant
+    {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(stakingVaultInitialized, "SRV not initialized");
+        require(staking != address(0), "Staking=0");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(amount &gt; 0, "Amount=0");
+        require(amount &lt;= stakingVaultBalance, "Exceeds SRV");
+&nbsp;
+        stakingVaultBalance -= amount;
+        IERC20(address(sft)).safeTransfer(staking, amount);
+&nbsp;
+        emit StakingVaultFunded(staking, amount, msg.sender);
+    }
+&nbsp;
+    /// @notice View current SRV status.
+    function stakingVaultInfo() external view returns (bool inited, uint256 cap, uint256 balance) {
+        return (stakingVaultInitialized, stakingVaultCap, stakingVaultBalance);
+    }
+&nbsp;
+    // =========================== Recovery &amp; Admin =============================
+&nbsp;
+    /// @notice Recover unrelated ERC20 tokens (not SFT) sent to this contract by mistake.
+    /// @dev Restricted to DEFAULT_ADMIN_ROLE (timelock in production).
+    function recoverERC20(address token, uint256 amount, address to)
+        external
+        <span class="missing-if-branch" title="else path not taken" >E</span>onlyRole(DEFAULT_ADMIN_ROLE)
+        <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant
+    {
+        require(token != address(sft), "Use recoverExcessSFT");
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(to != address(0), "Zero receiver");
+        IERC20(token).safeTransfer(to, amount);
+    }
+&nbsp;
+    /// @notice Recover SFT that is *not* reserved by vesting or SRV.
+    /// @dev `excess = balanceOf(this) - totalEscrowed - stakingVaultBalance`. Only excess may be recovered.
+    function recoverExcessSFT(uint256 amount, address to)
+        external
+        onlyRole(DEFAULT_ADMIN_ROLE)
+        <span class="missing-if-branch" title="else path not taken" >E</span>nonReentrant
+    {
+        <span class="missing-if-branch" title="else path not taken" >E</span>require(to != address(0), "Zero receiver");
+        uint256 bal = IERC20(address(sft)).balanceOf(address(this));
+        uint256 excess = bal - totalEscrowed - stakingVaultBalance;
+        require(amount &lt;= excess, "Amount exceeds excess");
+        IERC20(address(sft)).safeTransfer(to, amount);
+    }
+}
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Sep 02 2025 23:55:28 GMT-0700 (Pacific Daylight Time)
+</div>
+</div>
+<script src="../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../sorter.js"></script>
+</body>
+</html>
