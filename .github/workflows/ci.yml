@@ -102,11 +102,12 @@ jobs:
       - name: Pre-compile with Hardhat
         run: npx hardhat compile
 
-      - name: Run Slither (project code only)
+      - name: Run Slither (filtered → JSON for CI)
         run: |
-          mkdir -p reports
-          rm -f reports/slither.filtered.json
-          slither . --filter-paths 'node_modules|contracts/test' --json reports/slither.filtered.json
+         set -euo pipefail
+         mkdir -p reports
+         # Run Slither and capture JSON + stderr, but never fail this step
+         slither . --filter-paths "node_modules|contracts/test" --json - > reports/slither.ci.json 2> reports/slither.stderr.txt || true
 
       # You already committed scripts/slither-fail-high.cjs earlier
       - name: Fail if High severity in project code
