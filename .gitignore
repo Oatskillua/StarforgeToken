@@ -1,6 +1,5 @@
 # Node modules
 node_modules/
-starforge-frontend/node_modules/
 
 # Hardhat build artifacts
 cache/
