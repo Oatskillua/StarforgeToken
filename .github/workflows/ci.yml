@@ -2,9 +2,9 @@ name: Starforge CI
 
 on:
   push:
-    branches: [ "main", "mastery", "develop" ]
+    branches: [mastery, main, develop]
   pull_request:
-    branches: [ "**" ]
+    branches: ['**']
   workflow_dispatch: {}
 
 permissions:
@@ -15,17 +15,20 @@ jobs:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: 'npm'
 
-      - name: Install deps
+      # Use npm ci if lockfile exists, otherwise npm install
+      - name: Install deps (CI)
+        if: ${{ hashFiles('package-lock.json') != '' }}
         run: npm ci
+      - name: Install deps (no lockfile)
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        run: npm install
 
       - name: Compile
         run: npx hardhat compile
@@ -38,17 +41,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: 'npm'
 
-      - name: Install deps
+      - name: Install deps (CI)
+        if: ${{ hashFiles('package-lock.json') != '' }}
         run: npm ci
+      - name: Install deps (no lockfile)
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        run: npm install
 
       - name: Run solidity-coverage
         run: npx hardhat coverage
@@ -70,88 +75,45 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "npm"
+          cache: 'npm'
 
-      - name: Install deps
+      - name: Install deps (CI)
+        if: ${{ hashFiles('package-lock.json') != '' }}
         run: npm ci
+      - name: Install deps (no lockfile)
+        if: ${{ hashFiles('package-lock.json') == '' }}
+        run: npm install
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: '3.11'
 
       - name: Install Slither
         run: |
           python -m pip install --upgrade pip
           pip install slither-analyzer crytic-compile
 
-      - name: Ensure reports dir
-        run: mkdir -p reports
-
-      - name: Versions (debug)
-        run: |
-          node -v
-          npx hardhat --version
-          slither --version || true
-          crytic-compile --version || true
-
-      - name: Hardhat clean
-        run: npx hardhat clean
-
-      - name: Precompile with Hardhat
+      # Pre-compile helps crytic-compile avoid toolchain hiccups
+      - name: Pre-compile with Hardhat
         run: npx hardhat compile
 
-      - name: Run Slither (filtered to JSON for CI)
-        shell: bash
+      - name: Run Slither (project code only)
         run: |
-          set -eo pipefail
           mkdir -p reports
-          slither . \
-            --compile-force-framework hardhat \
-            --solc-remaps @openzeppelin=node_modules/@openzeppelin \
-            --filter-paths "node_modules|contracts/test" \
-            --json - \
-            1> reports/slither.ci.json \
-            2> reports/slither.stderr.log
+          slither . --filter-paths 'node_modules|contracts/test' --json reports/slither.filtered.json
 
+      # You already committed scripts/slither-fail-high.cjs earlier
       - name: Fail if High severity in project code
-        run: |
-          node - <<'NODE'
-          const fs = require('fs');
-          const j = JSON.parse(fs.readFileSync('reports/slither.ci.json','utf8'));
-          const dets = (j.results && j.results.detectors) || [];
-          let mine = 0, total = 0;
-          for (const d of dets) {
-            const sev = (d.impact || '').toLowerCase();
-            if (sev !== 'high') continue;
-            total++;
-            const locs = d.elements || d.expressions || d.events || d.functions || d.variables || d.operations || [];
-            const inMine = locs.some(loc => {
-              const sm = (loc.source_mapping || {});
-              const f = sm.filename_relative || sm.filename_absolute || loc.filename_relative || '';
-              return typeof f === 'string' && f.startsWith('contracts/');
-            });
-            if (inMine) mine++;
-          }
-          if (mine > 0) {
-            console.error(`High findings in project code: ${mine} (total High incl. deps: ${total})`);
-            process.exit(1);
-          }
-          console.log(`OK: 0 High in project code (deps High=${total})`);
-          NODE
+        run: node scripts/slither-fail-high.cjs reports/slither.filtered.json
 
       - name: Upload Slither artifacts (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: slither-artifacts
-          path: |
-            reports/slither.ci.json
-            reports/slither.stderr.log
+          name: slither-report
+          path: reports/slither.filtered.json
