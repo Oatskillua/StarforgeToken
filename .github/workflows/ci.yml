@@ -111,7 +111,7 @@ jobs:
       - name: Run Slither (filtered to JSON for CI)
         shell: bash
         run: |
-          set -euo pipefail
+          set -eo pipefail
           mkdir -p reports
           slither . \
             --compile-force-framework hardhat \
