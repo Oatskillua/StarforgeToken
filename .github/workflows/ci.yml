@@ -109,7 +109,6 @@ jobs:
         run: npx hardhat compile
 
       - name: Run Slither (filtered to JSON for CI)
-        runs-on: ubuntu-latest
         shell: bash
         run: |
           set -euo pipefail
