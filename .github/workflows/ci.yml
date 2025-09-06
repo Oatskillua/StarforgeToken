@@ -67,73 +67,85 @@ jobs:
             coverage/
             coverage.json
 
-  slither:
-    name: Static analysis (fail if High in project code)
-    runs-on: ubuntu-latest
-    needs: test
+slither:
+  name: Static analysis (fail if High in project code)
+  runs-on: ubuntu-latest
+  needs: test
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  steps:
+    - name: Checkout
+    uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
 
-      - name: Install deps
-        run: npm ci
+    - name: Install deps
+      run: npm ci
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
+    - name: Setup Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
 
-      - name: Install Slither
-        run: |
-          python -m pip install --upgrade pip
-          pip install slither-analyzer crytic-compile
+    - name: Install Slither
+      run: |
+        python -m pip install --upgrade pip
+        pip install slither-analyzer crytic-compile
 
-      - name: Run Slither (filtered to project code)
-        run: |
-          mkdir -p reports
-          slither . --filter-paths "node_modules|contracts/test" --json reports/slither.filtered.json
+    # --- split steps so any failure is obvious ---
+    - name: Ensure reports dir
+      run: mkdir -p reports
 
-      - name: Create fail-on-High script
-        run: |
-          mkdir -p scripts
-          cat > scripts/slither-fail-high.cjs <<'EOF'
-          const fs = require('fs');
-          const path = process.argv[2] || 'reports/slither.filtered.json';
-          const j = JSON.parse(fs.readFileSync(path, 'utf8'));
-          const dets = (j.results && j.results.detectors) || [];
-          let highMine = 0, highTotal = 0;
-          for (const d of dets) {
-            const sev = (d.impact || '').toLowerCase();
-            if (sev !== 'high') continue;
-            highTotal++;
-            const locs = d.elements || d.expressions || d.events || d.functions || d.variables || d.operations || [];
-            const inMyCode = locs.some(loc => {
-              const sm = (loc.source_mapping || {});
-              const f = sm.filename_relative || sm.filename_absolute || loc.filename_relative || '';
-              return typeof f === 'string' && f.startsWith('contracts/');
-            });
-            if (inMyCode) highMine++;
-          }
-          if (highMine > 0) {
-            console.error(`High findings in project code: ${highMine} (total High incl. deps: ${highTotal})`);
-            process.exit(1);
-          }
-          console.log(`OK: 0 High in project code (deps High=${highTotal})`);
-          EOF
+    - name: Slither version (debug)
+      run: slither --version
 
-      - name: Fail if High severity in project code
-        run: node scripts/slither-fail-high.cjs reports/slither.filtered.json
+    - name: Run Slither (filtered → JSON for CI)
+      run: slither . --filter-paths "node_modules|contracts/test" --json - > reports/slither.ci.json
 
-      - name: Upload Slither artifacts (always)
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: slither-report
-          path: reports/slither.filtered.json
+    - name: Show Slither JSON size & head (debug)
+      run: |
+        ls -l reports
+        head -c 500 reports/slither.ci.json || true
+        echo
+        echo "--- end of preview ---"
+
+    - name: Create fail-on-High script
+      run: |
+        mkdir -p scripts
+        cat > scripts/slither-fail-high.cjs <<'EOF'
+        const fs = require('fs');
+        const path = process.argv[2] || 'reports/slither.ci.json';
+        const j = JSON.parse(fs.readFileSync(path, 'utf8'));
+        const dets = (j.results && j.results.detectors) || [];
+        let highMine = 0, highTotal = 0;
+        for (const d of dets) {
+          const sev = (d.impact || '').toLowerCase();
+          if (sev !== 'high') continue;
+          highTotal++;
+          const locs = d.elements || d.expressions || d.events || d.functions || d.variables || d.operations || [];
+          const inMyCode = locs.some(loc => {
+            const sm = (loc.source_mapping || {});
+            const f = sm.filename_relative || sm.filename_absolute || loc.filename_relative || '';
+            return typeof f === 'string' && f.startsWith('contracts/');
+          });
+          if (inMyCode) highMine++;
+        }
+        if (highMine > 0) {
+          console.error(\`High findings in project code: \${highMine} (total High incl. deps: \${highTotal})\`);
+          process.exit(1);
+        }
+        console.log(\`OK: 0 High in project code (deps High=\${highTotal})\`);
+        EOF
+
+    - name: Fail if High severity in project code
+      run: node scripts/slither-fail-high.cjs reports/slither.ci.json
+
+    - name: Upload Slither (CI) JSON (artifact)
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: slither-ci-json
+        path: reports/slither.ci.json
