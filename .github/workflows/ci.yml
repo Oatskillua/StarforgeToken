@@ -105,6 +105,7 @@ jobs:
       - name: Run Slither (project code only)
         run: |
           mkdir -p reports
+          rm -f reports/slither.filtered.json
           slither . --filter-paths 'node_modules|contracts/test' --json reports/slither.filtered.json
 
       # You already committed scripts/slither-fail-high.cjs earlier
