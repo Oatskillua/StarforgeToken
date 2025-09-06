@@ -1,4 +1,3 @@
-# .github/workflows/ci.yml
 name: Starforge CI
 
 on:
@@ -22,7 +21,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install deps
         run: npm ci
@@ -45,7 +44,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install deps
         run: npm ci
@@ -77,7 +76,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install deps
         run: npm ci
@@ -85,7 +84,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.11"
 
       - name: Install Slither
         run: |
@@ -111,7 +110,7 @@ jobs:
       - name: Run Slither (filtered to JSON for CI)
         shell: bash
         run: |
-          set -euxo pipefail
+          set -euo pipefail
           slither . \
             --compile-force-framework hardhat \
             --solc-remaps @openzeppelin=node_modules/@openzeppelin \
@@ -121,9 +120,30 @@ jobs:
             2> reports/slither.stderr.log
 
       - name: Fail if High severity in project code
-        shell: bash
         run: |
-          node -e "const fs=require('fs');const j=JSON.parse(fs.readFileSync('reports/slither.ci.json','utf8'));const dets=(j.results&&j.results.detectors)||[];let hm=0,ht=0;for(const d of dets){const s=(d.impact||'').toLowerCase();if(s!=='high')continue;ht++;const locs=d.elements||d.expressions||d.events||d.functions||d.variables||d.operations||[];const inMine=locs.some(loc=>{const sm=(loc.source_mapping||{});const f=sm.filename_relative||sm.filename_absolute||loc.filename_relative||'';return typeof f==='string'&&f.startsWith('contracts/');});if(inMine)hm++;}if(hm>0){console.error(`High findings in project code: ${hm} (total High incl. deps: ${ht})`);process.exit(1);}console.log(`OK: 0 High in project code (deps High=${ht})`);"
+          node - <<'NODE'
+          const fs = require('fs');
+          const j = JSON.parse(fs.readFileSync('reports/slither.ci.json','utf8'));
+          const dets = (j.results && j.results.detectors) || [];
+          let mine = 0, total = 0;
+          for (const d of dets) {
+            const sev = (d.impact || '').toLowerCase();
+            if (sev !== 'high') continue;
+            total++;
+            const locs = d.elements || d.expressions || d.events || d.functions || d.variables || d.operations || [];
+            const inMine = locs.some(loc => {
+              const sm = (loc.source_mapping || {});
+              const f = sm.filename_relative || sm.filename_absolute || loc.filename_relative || '';
+              return typeof f === 'string' && f.startsWith('contracts/');
+            });
+            if (inMine) mine++;
+          }
+          if (mine > 0) {
+            console.error(`High findings in project code: ${mine} (total High incl. deps: ${total})`);
+            process.exit(1);
+          }
+          console.log(`OK: 0 High in project code (deps High=${total})`);
+          NODE
 
       - name: Upload Slither artifacts (always)
         if: always()
