@@ -1,6 +1,7 @@
 # Node modules
 node_modules/
 reports/slither.ci.json
+reports/slither.stderr.log
 
 # Hardhat build artifacts
 cache/
