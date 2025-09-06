@@ -97,24 +97,31 @@ jobs:
           pip install slither-analyzer crytic-compile
 
       - name: Ensure reports dir
-        run: mkdir -p reports
+        run: mkdir -p reports scripts
 
-      - name: Slither version (debug)
-        run: slither --version
+      - name: Versions (debug)
+        run: |
+          node -v
+          npx hardhat --version
+          slither --version || true
+          crytic-compile --version || true
+
+      # Precompile reduces flakiness in crytic-compile/Slither
+      - name: Precompile with Hardhat
+        run: npx hardhat compile
 
       - name: Run Slither (filtered → JSON for CI)
-        run: slither . --filter-paths "node_modules|contracts/test" --json - > reports/slither.ci.json
-
-      - name: Show Slither JSON size & head (debug)
+        shell: bash
         run: |
-          ls -l reports
-          head -c 500 reports/slither.ci.json || true
-          echo
-          echo "--- end of preview ---"
+          set -euxo pipefail
+          slither . \
+            --filter-paths "node_modules|contracts/test" \
+            --json - \
+            1> reports/slither.ci.json \
+            2> reports/slither.stderr.log
 
       - name: Create fail-on-High script
         run: |
-          mkdir -p scripts
           cat > scripts/slither-fail-high.cjs <<'EOF'
           const fs = require('fs');
           const path = process.argv[2] || 'reports/slither.ci.json';
@@ -143,9 +150,11 @@ jobs:
       - name: Fail if High severity in project code
         run: node scripts/slither-fail-high.cjs reports/slither.ci.json
 
-      - name: Upload Slither (CI) JSON (artifact)
+      - name: Upload Slither artifacts (always)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: slither-ci-json
-          path: reports/slither.ci.json
+          name: slither-artifacts
+          path: |
+            reports/slither.ci.json
+            reports/slither.stderr.log
