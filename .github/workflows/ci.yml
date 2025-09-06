@@ -95,17 +95,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install slither-analyzer crytic-compile
 
-      - name: Run Slither (filtered to project code)
+      - name: Run Slither (filtered → JSON for CI)
         run: |
           mkdir -p reports
-          slither . --filter-paths "node_modules|contracts/test" --json reports/slither.filtered.json
+          slither . --filter-paths "node_modules|contracts/test" --json - > reports/slither.ci.json
 
       - name: Create fail-on-High script
         run: |
           mkdir -p scripts
           cat > scripts/slither-fail-high.cjs <<'EOF'
           const fs = require('fs');
-          const path = process.argv[2] || 'reports/slither.filtered.json';
+          const path = process.argv[2] || 'reports/slither.ci.json';
           const j = JSON.parse(fs.readFileSync(path, 'utf8'));
           const dets = (j.results && j.results.detectors) || [];
           let highMine = 0, highTotal = 0;
@@ -129,11 +129,11 @@ jobs:
           EOF
 
       - name: Fail if High severity in project code
-        run: node scripts/slither-fail-high.cjs reports/slither.filtered.json
+        run: node scripts/slither-fail-high.cjs reports/slither.ci.json
 
-      - name: Upload Slither artifacts (always)
+      - name: Upload Slither (CI) JSON (artifact)
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: slither-report
-          path: reports/slither.filtered.json
+          name: slither-ci-json
+          path: reports/slither.ci.json
