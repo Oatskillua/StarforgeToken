@@ -1,6 +1,6 @@
 # Node modules
 node_modules/
-starforge-frontend/node_modules/
+reports/slither.ci.json
 
 # Hardhat build artifacts
 cache/
