@@ -1,0 +1,10 @@
+{
+  "printWidth": 100,
+  "singleQuote": false,
+  "overrides": [
+    {
+      "files": "*.sol",
+      "options": { "pluginSearchDirs": ["." ] }
+    }
+  ]
+}
