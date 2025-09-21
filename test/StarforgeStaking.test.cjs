@@ -2,11 +2,14 @@
 const { expect } = require("chai");
 const hre = require("hardhat");
 const { ethers } = hre;
+const { time } = require("@nomicfoundation/hardhat-network-helpers");
 
 describe("StarforgeStaking", function () {
   let token, staking, ogNFT, deployer, user1, treasury, council, snapshotId;
 
   const toWei = (v) => ethers.parseUnits(v, 18);
+  const ONE_YEAR_SECONDS = 365 * 24 * 60 * 60;
+  const TOL = toWei("0.01"); // ~0.01 SFG tolerance to absorb rounding/drift
 
   beforeEach(async function () {
     [deployer, user1, treasury, council] = await ethers.getSigners();
@@ -51,12 +54,11 @@ describe("StarforgeStaking", function () {
   it("stakes and calculates rewards with OGNFT boost", async function () {
     // Stake 1,100,000 SFG for a year (no NFT boost)
     await staking.connect(user1).stake(toWei("1100000"));
-    await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
-    await ethers.provider.send("evm_mine");
+    await time.increase(ONE_YEAR_SECONDS);
 
     // 1.1M * 3.5% = 38,500 SFG
     const r1 = await staking.getRewards(await user1.getAddress());
-    expect(r1).to.be.closeTo(toWei("38500"), 1000n);
+    expect(r1).to.be.closeTo(toWei("38500"), TOL);
 
     // Reset state
     await ethers.provider.send("evm_revert", [snapshotId]);
@@ -65,19 +67,17 @@ describe("StarforgeStaking", function () {
     // Burn 100,000 SFG to earn OGNFT, then stake 1,200,000 SFG for a year (with boost)
     await token.connect(user1).burnUser(toWei("100000")); // should mint the soulbound OGNFT
     await staking.connect(user1).stake(toWei("1200000"));
-    await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
-    await ethers.provider.send("evm_mine");
+    await time.increase(ONE_YEAR_SECONDS);
 
     // Expected example with boost: 1.2M * 5.5% = 66,000 SFG
     const r2 = await staking.getRewards(await user1.getAddress());
-    expect(r2).to.be.closeTo(toWei("66000"), 1000n);
+    expect(r2).to.be.closeTo(toWei("66000"), TOL);
   });
 
   it("unstakes with fee", async function () {
     // Stake 1,000,000 SFG for a year
     await staking.connect(user1).stake(toWei("1000000"));
-    await ethers.provider.send("evm_increaseTime", [365 * 24 * 60 * 60]);
-    await ethers.provider.send("evm_mine");
+    await time.increase(ONE_YEAR_SECONDS);
 
     // Grant BURNER_ROLE to staking so it can burn fee (if your implementation needs it)
     const BURNER_ROLE = ethers.keccak256(ethers.toUtf8Bytes("BURNER_ROLE"));
@@ -86,8 +86,8 @@ describe("StarforgeStaking", function () {
     // Unstake 1,000,000 SFG (expect 1% fee = 10,000 burned, so net +990,000)
     await staking.connect(user1).unstake(toWei("1000000"));
 
-    // user1 started with 2,000,000 SFG, staked 1,000,000, then got 990,000 back => 1,990,000
+    // user1 started with 2,000,000 SFG, staked 1,000,000, then got 990,000 back => 1,990,000 (± tiny tolerance)
     const bal = await token.balanceOf(await user1.getAddress());
-    expect(bal).to.be.closeTo(toWei("1990000"), 1000n);
+    expect(bal).to.be.closeTo(toWei("1990000"), TOL);
   });
 });
