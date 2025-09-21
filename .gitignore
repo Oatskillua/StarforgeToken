@@ -1,16 +1,48 @@
-# Node modules
+# Node
 node_modules/
-reports/slither.ci.json
-reports/slither.stderr.log
 
 # Hardhat build artifacts
-cache/
 artifacts/
+cache/
 
-# Local env file
+# Coverage (generated)
+coverage/
+coverage.json
+
+# Reports (generated) — keep only the curated Slither report in git
+reports/**
+!reports/slither.filtered.json
+!reports/.gitkeep
+
+# Local env files
 .env
+.env.*
+!.env.example
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# Foundry (if used later)
+out/
+broadcast/
+
+# Misc
+*.tsbuildinfo
+*.swp
+*.swo
+tmp/
+dist/
