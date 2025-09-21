@@ -1,0 +1,4 @@
+# Require @Oatskillua to review Solidity, scripts, and workflows
+/contracts/**              @Oatskillua
+/scripts/**                @Oatskillua
+/.github/workflows/**      @Oatskillua
