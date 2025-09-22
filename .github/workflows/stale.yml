@@ -1,0 +1,21 @@
+name: Mark stale issues and PRs
+on:
+  schedule:
+    - cron: '0 2 * * *'
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/stale@v9
+        with:
+          days-before-stale: 30
+          days-before-close: 7
+          stale-issue-message: 'This issue is stale due to inactivity.'
+          stale-pr-message: 'This PR is stale due to inactivity.'
+          exempt-issue-labels: 'security,blocked,help wanted'
+          exempt-pr-labels: 'security,blocked'
