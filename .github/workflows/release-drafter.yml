@@ -1,6 +1,8 @@
 name: Release Drafter
+
 on:
-  push: { branches: [Mastery] }
+  push:
+    branches: [Mastery]
   pull_request:
     types: [opened, reopened, synchronize, labeled, unlabeled, closed]
 
