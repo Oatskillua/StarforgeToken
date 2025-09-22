@@ -16,7 +16,7 @@
     "dotenv": "^17.2.2",
     "ethers": "^6.15.0",
     "hardhat": "^2.26.3",
-    "hardhat-gas-reporter": "^1.0.10",
+    "hardhat-gas-reporter": "^2.3.0",
     "solidity-coverage": "^0.8.16"
   },
   "description": "This repository contains the smart contracts and front-end dApp for the StarforgeToken ecosystem, including token, staking, and governance.",
