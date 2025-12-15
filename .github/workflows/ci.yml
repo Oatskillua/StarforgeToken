@@ -63,7 +63,7 @@ jobs:
 
       - name: Upload coverage artifacts (always)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: coverage-report
           path: |
@@ -115,7 +115,7 @@ jobs:
 
       - name: Upload Slither artifacts (always)
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: slither-report
           path: reports/slither.filtered.json
