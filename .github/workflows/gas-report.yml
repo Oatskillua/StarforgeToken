@@ -30,7 +30,7 @@ jobs:
           REPORT_GAS=true npx hardhat test 2>&1 | tee gas-report.txt
 
       - name: Upload gas report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: gas-report
           path: gas-report.txt
